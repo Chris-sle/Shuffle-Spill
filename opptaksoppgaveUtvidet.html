@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ShuffleGame</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            user-select: none;
+        }
+
+        #displayDiv {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            gap: 30px;
+            margin-top: 200px;
+            text-align: center;
+            justify-items: center;
+        }
+
+        .numberDivs {
+            color: blue;
+            background-color: lightblue;
+            padding: 10px;
+            border: solid green 2px;
+            width: 30px;
+            height: 30px;
+            float: left;
+            text-align: center;
+        }
+
+       #message {
+            position:absolute;
+            top: 100px
+       } 
+
+       #resetBtn {
+            position: absolute;
+            margin-top: 450px;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            background-color: blueviolet;
+            font-weight: bolder;
+       }
+
+       #resetBtn:hover {
+        background-color: orange;
+       }
+    </style>
+</head>
+
+<body>
+    <div id="displayDiv">
+        <div id="r1k1" class="numberDivs" onclick="trykk (this, 'r2k1', 'r1k2')">7</div>
+        <div id="r1k2" class="numberDivs" onclick="trykk (this, 'r1k1', 'r1k3','r2k2')">1</div>
+        <div id="r1k3" class="numberDivs" onclick="trykk (this, 'r1k2', 'r2k3')">2</div>
+
+        <div id="r2k1" class="numberDivs" onclick="trykk (this,'r2k2','r1k1','r3k1', 'r3k1')">5</div>
+        <div id="r2k2" class="numberDivs" onclick="trykk (this, 'r1k2', 'r2k1', 'r2k3', 'r3k2')"></div>
+        <div id="r2k3" class="numberDivs" onclick="trykk (this, 'r1k3', 'r2k2', 'r3k3')">3</div>
+
+        <div id="r3k1" class="numberDivs" onclick="trykk (this,'r2k1', 'r3k2')">8</div>
+        <div id="r3k2" class="numberDivs" onclick="trykk (this, 'r2k2', 'r3k1', 'r3k3')">4</div>
+        <div id="r3k3" class="numberDivs" onclick="trykk (this, 'r2k3', 'r3k2')">6</div>
+        <div>
+            <h1 id="message"></h1>
+        </div>
+    </div>
+    <button id="resetBtn" onclick="location.reload()">Reset Game</button>
+    
+    <script>
+        winGame();
+
+        function trykk(tagElement, alt1, alt2, alt3, alt4){
+            if (document.getElementById(alt1).innerHTML == '') {
+                document.getElementById(alt1).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+                winGame();
+            }
+            else if (document.getElementById(alt2).innerHTML == '') {
+                document.getElementById(alt2).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+                winGame();
+            }
+            else if (document.getElementById(alt3).innerHTML == '') {
+                document.getElementById(alt3).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+                winGame();
+            }
+            else if (document.getElementById(alt4).innerHTML == '') {
+                document.getElementById(alt4).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+                winGame();
+            }
+        }
+
+        function winGame() {
+            const cells = document.getElementsByClassName('numberDivs');
+            const values = Array.from(cells, cell => cell.innerHTML);
+
+            if (values.join('') === '12345678') {
+                document.getElementById('message').innerHTML = 'You won the game!';
+            } else {
+                document.getElementById('message').innerHTML = 'Keep trying!';
+            }
+        }
+
+    </script>
+</body>
+</html>
